@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fire/core/services/google_signin.dart';
 import 'package:flutter_fire/ui/shared/styles/welcome_view_styles.dart';
 import 'package:flutter_fire/ui/shared/widgets/rounded_button.dart';
 import 'package:flutter_fire/ui/views/authentication/login_view.dart';
@@ -43,6 +44,18 @@ class _WelcomeViewState extends State<WelcomeView> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => RegisterView()));
+                  },
+                ),
+                RoundedButton(
+                  colour: Color(0xff5186EC),
+                  title: "Google SignIn",
+                  onPressed: () async {
+                    var data = await GoogleSignHelper.instance.signIn();
+                    if (data != null) {
+                      var userData =
+                          await GoogleSignHelper.instance.firebaseSignin();
+                      print(userData);
+                    }
                   },
                 ),
               ],
