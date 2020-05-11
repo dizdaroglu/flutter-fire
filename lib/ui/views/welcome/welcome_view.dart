@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fire/ui/shared/styles/welcome_view_styles.dart';
 import 'package:flutter_fire/ui/shared/widgets/rounded_button.dart';
 import 'package:flutter_fire/ui/views/authentication/login_view.dart';
+import 'package:flutter_fire/ui/views/authentication/register_view.dart';
 
 class WelcomeView extends StatefulWidget {
   @override
@@ -37,7 +38,12 @@ class _WelcomeViewState extends State<WelcomeView> {
                 RoundedButton(
                   colour: Color(0xffe74c3c),
                   title: "Register",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterView()));
+                  },
                 ),
               ],
             ),

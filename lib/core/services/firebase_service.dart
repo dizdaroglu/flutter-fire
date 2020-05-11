@@ -12,12 +12,29 @@ import 'package:flutter_fire/apiURL.dart';
 
 class FirebaseService {
   static const String FIREBASE_URL = firebase_url;
-  static const String FIREBASE_AUTH_URL = firebase_auth_url;
+  static const String FIREBASE_LOGIN_URL = firebase_login_url;
+  static const String FIREBASE_REGISTER_URL = firebase_register_url;
 
   Future postUser(UserRequest request) async {
     var jsonModel = json.encode(request.toJson());
 
-    final response = await http.post(FIREBASE_AUTH_URL, body: jsonModel);
+    final response = await http.post(FIREBASE_LOGIN_URL, body: jsonModel);
+
+    switch (response.statusCode) {
+      case HttpStatus.ok:
+        return true;
+
+      default:
+        var errorJson = json.decode(response.body);
+        var error = FirebaseAuthError.fromJson(errorJson);
+        return error;
+    }
+  }
+
+  Future postRegister(UserRequest request) async {
+    var jsonModel = json.encode(request.toJson());
+
+    final response = await http.post(FIREBASE_REGISTER_URL, body: jsonModel);
 
     switch (response.statusCode) {
       case HttpStatus.ok:
